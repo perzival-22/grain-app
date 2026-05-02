@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const SETTINGS_KEY = 'grain_settings'
 
@@ -17,6 +18,7 @@ function saveSettings(s) {
 
 export default function Settings() {
   const navigate = useNavigate()
+  const { user, signOut } = useAuth()
   const [settings, setSettings] = useState(() => {
     const s = loadSettings()
     return {
@@ -40,6 +42,10 @@ export default function Settings() {
       localStorage.removeItem(SETTINGS_KEY)
       navigate('/')
     }
+  }
+
+  const handleSignOut = async () => {
+    await signOut()
   }
 
   return (
@@ -121,6 +127,27 @@ export default function Settings() {
 
           </div>
         </section>
+
+        {/* Account */}
+        {user && (
+          <section>
+            <h2 className="text-xs uppercase tracking-widest text-text-muted mb-4">Account</h2>
+            <div className="bg-surface rounded-xl border border-border/50 divide-y divide-border/30">
+              <div className="p-4">
+                <p className="text-xs text-text-muted uppercase tracking-widest mb-1">Signed in as</p>
+                <p className="text-sm font-mono text-text truncate">{user.email}</p>
+              </div>
+              <div className="p-4">
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-sm text-text-muted hover:text-text border border-border/50 hover:border-border rounded-lg py-3 font-semibold uppercase tracking-wider transition-all"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* About */}
         <section>
