@@ -1,0 +1,66 @@
+Build a web app called Grain — a film roll tracker for analog photographers.
+
+TECH STACK:
+- React + Vite (frontend)
+- Tailwind CSS (styling)
+- Supabase (database + auth)
+- React Router (navigation)
+- Local storage fallback for offline use
+
+COLOUR THEME:
+Dark UI. Primary background #1a1a18, surface #2C2C2A, accent #EF9F27 (amber), text #F1EFE8. Clean, minimal, feels like a darkroom.
+
+BUILD THESE 3 SCREENS ONLY (MVP):
+
+1. ROLL LIST (home screen — route: /)
+- Header showing "Grain" and total roll count
+- Active roll card at the top showing: film stock name, camera, ISO, frames shot out of 36, status badge (In Camera / Shot / Developing / Scanned)
+- Visual 36-frame grid showing filled vs empty frames
+- List of recent rolls below with stock name, camera, date, status badge
+- Floating "+" button to log a new roll
+- Clicking a roll opens the Roll Detail screen
+
+2. ROLL DETAIL (route: /roll/:id)
+- Back button to Roll List
+- Editable roll info: film stock, camera, ISO, push/pull stops
+- Interactive 36-frame counter — tap a frame to mark it as shot, tap again to add a note
+- Status pipeline: In Camera → Shot → Developing → At Lab → Scanned
+- "Start dev timer" button (navigates to Dev Timer screen)
+- Notes field for the roll
+
+3. DEV TIMER (route: /timer)
+- User selects a chemistry from a preset list (HC-110 Dil.B, D-76, Rodinal 1+50, Ilfosol 3, ID-11, XTOL)
+- Shows dev time for that chemistry at 68°F
+- Countdown timer with large display
+- Step pipeline: Pre-soak (2min) → Developer → Stop Bath (1min) → Fixer (5min)
+- Agitation reminder fires every 30 seconds during developer step — shows a banner alert
+- "Next step" button to advance
+- Pause/resume button
+
+DATABASE SCHEMA (Supabase):
+Table: rolls
+- id (uuid, primary key)
+- created_at (timestamp)
+- film_stock (text)
+- camera (text)
+- iso (integer)
+- push_pull (integer, default 0)
+- frames_shot (integer, default 0)
+- frame_count (integer, default 36)
+- status (text: in_camera | shot | developing | at_lab | scanned)
+- notes (text)
+
+Table: frames
+- id (uuid, primary key)
+- roll_id (uuid, foreign key → rolls.id)
+- frame_number (integer)
+- note (text)
+- shot_at (timestamp)
+
+Seed the chemistry presets as a local JS constant — no table needed.
+
+IMPORTANT NOTES:
+- No auth for MVP — single user, no login screen
+- Mobile-first layout, max width 430px centered
+- Use React useState and useEffect for state management
+- Keep it simple — no Redux, no complex libraries
