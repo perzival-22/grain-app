@@ -11,12 +11,23 @@ const STATUS_LABELS = {
   scanned: 'Scanned',
 }
 
+function getDefaultSettings() {
+  try {
+    return JSON.parse(localStorage.getItem('grain_settings') || '{}')
+  } catch {
+    return {}
+  }
+}
+
 export default function RollList() {
   const [rolls, setRolls] = useState([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [pushPull, setPushPull] = useState(0)
   const navigate = useNavigate()
+  const savedSettings = getDefaultSettings()
+  const defaultFrameCount = savedSettings.defaultFrameCount ?? 36
+  const defaultISO = savedSettings.defaultISO ?? 400
 
   useEffect(() => {
     getRolls().then(data => {
@@ -215,7 +226,7 @@ export default function RollList() {
                     required
                     type="number"
                     name="iso"
-                    defaultValue="400"
+                    defaultValue={defaultISO}
                     min="25"
                     max="6400"
                     className="w-full bg-primary border border-border rounded p-3 text-text focus:outline-none focus:border-accent transition-colors"
@@ -225,7 +236,7 @@ export default function RollList() {
                   <label className="block text-xs text-text-muted mb-1 uppercase tracking-wider">Frames</label>
                   <select
                     name="frame_count"
-                    defaultValue="36"
+                    defaultValue={defaultFrameCount}
                     className="w-full bg-primary border border-border rounded p-3 text-text focus:outline-none focus:border-accent transition-colors appearance-none"
                   >
                     <option value="24">24</option>
