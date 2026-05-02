@@ -322,3 +322,5 @@ export default function DevTimer() {
       {/* Ambient darkroom glow */}
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-accent/5 blur-[100px] pointer-events-none" />
     </div>
+  )
+}
