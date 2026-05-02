@@ -177,7 +177,7 @@ export default function RollList() {
       {/* ── Floating Add Button ── */}
       <button
         onClick={() => setShowModal(true)}
-        className="fixed bottom-8 right-1/2 translate-x-[180px] w-14 h-14 bg-accent rounded-full flex items-center justify-center text-primary shadow-lg shadow-accent/20 hover:scale-105 active:scale-95 transition-all z-20"
+        className="fixed bottom-20 right-6 w-14 h-14 bg-accent rounded-full flex items-center justify-center text-primary shadow-lg shadow-accent/20 hover:scale-105 active:scale-95 transition-all z-20"
         aria-label="Log new roll"
       >
         <PlusIcon />
