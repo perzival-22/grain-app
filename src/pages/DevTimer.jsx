@@ -171,7 +171,7 @@ export default function DevTimer() {
             ))}
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 pb-24">
             <button
               onClick={() => startStep(0)}
               className="w-full bg-accent text-primary font-bold py-4 rounded-lg shadow-lg shadow-accent/20 hover:bg-accent/90 transition-all text-lg"
@@ -322,5 +322,3 @@ export default function DevTimer() {
       {/* Ambient darkroom glow */}
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-accent/5 blur-[100px] pointer-events-none" />
     </div>
-  )
-}
